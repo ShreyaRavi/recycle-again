@@ -34,14 +34,19 @@ dependencies {
     compile 'edu.wpi.first.wpilib.networktables.java:NetworkTables:3.1.1-beta-1'
 }
 
+sourceSets {
+    main.java.srcDirs += 'build/gen/buildconfig/src/main'
+}
+
+buildConfig {
+    packageName = "${project.group}.buildconfig"
+    buildConfigField 'String', 'AGENT', System.getenv("USERNAME") ?: 'Anonymous'
+}
+
 gradlerio {
     robotClass = "org.teamresistance.frc.Robot"
     team = "86"
     rioIP = "10.00.86.2"
-}
-
-buildConfig {
-    buildConfigField 'String', 'AGENT', System.getenv("USERNAME") ?: 'Anonymous'
 }
 
 jar {
