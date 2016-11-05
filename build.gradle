@@ -1,14 +1,62 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url "http://dev.imjac.in/maven" }
+    }
+    dependencies {
+        // Keep an eye on https://github.com/Open-RIO/GradleRIO/issues/11
+        classpath "jaci.openrio.gradle:GradleRIO:4.4.3"
+    }
+}
+
+plugins {
+    id 'java'
+    id 'de.fuerstenau.buildconfig' version '1.1.7'
+}
+
+apply plugin: 'GradleRIO'
+
 group 'org.teamresistance.frc'
 version '1.0-SNAPSHOT'
 
-apply plugin: 'java'
-
-sourceCompatibility = 1.5
-
 repositories {
     mavenCentral()
+    maven { url "http://first.wpi.edu/FRC/roborio/maven/release" }
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    // WPILib!
+    compile 'edu.wpi.first.wpilibj:wpilibJavaFinal:2016.5.1'
+
+    // NetworkTables!
+    compile 'edu.wpi.first.wpilib.networktables.java:NetworkTables:3.1.1-beta-1'
+}
+
+gradlerio {
+    robotClass = "org.teamresistance.frc.Robot"
+    team = "86"
+    rioIP = "10.00.86.2"
+}
+
+buildConfig {
+    buildConfigField 'String', 'AGENT', System.getenv("USERNAME") ?: 'Anonymous'
+}
+
+jar {
+    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    manifest {
+        attributes 'Main-Class': 'edu.wpi.first.wpilibj.RobotBase'
+        attributes 'Robot-Class': gradlerio.robotClass
+    }
+}
+
+task genJavadoc(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives genJavadoc
 }
