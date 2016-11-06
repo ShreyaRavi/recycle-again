@@ -19,7 +19,7 @@ public class Robot extends IterativeRobot {
         // using the "USERNAME" system environment variable. Prints to the DriverStation.
         System.out.println(BuildConfig.AGENT);
         IO.init();
-        robotDrive = new Drive(IO.leftFront, IO.leftRear, IO.rightFront, IO.rightRear, IO.gyro, IO.leftJoystick, IO.rightJoystick);
+        robotDrive = new Drive(IO.leftFront, IO.leftRear, IO.rightFront, IO.rightRear, IO.gyro);
     }
 
     @Override
