@@ -5,9 +5,7 @@ import org.strongback.components.Motor;
 import org.strongback.components.ui.FlightStick;
 import org.strongback.drive.MecanumDrive;
 
-/**
- * Created by shrey on 11/6/2016.
- */
+
 public class Drive {
 
     public MecanumDrive robotDrive;
@@ -16,8 +14,8 @@ public class Drive {
         robotDrive = new MecanumDrive(leftFront,leftRear,rightFront,rightRear,gyro);
     }
 
-    public void update() {
-        robotDrive.cartesian(IO.leftJoystick.getPitch().read(), IO.leftJoystick.getRoll().read(), IO.rightJoystick.getRoll().read());
+    public void teleopDriveUpdate(FlightStick leftJoystick, FlightStick rightJoystick) {
+        robotDrive.cartesian(leftJoystick.getPitch().read(), leftJoystick.getRoll().read(), rightJoystick.getRoll().read());
     }
 
 

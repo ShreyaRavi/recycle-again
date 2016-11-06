@@ -24,7 +24,7 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void teleopPeriodic() {
-        robotDrive.update();
+        robotDrive.teleopDriveUpdate(IO.leftJoystick, IO.rightJoystick);
     }
 
 

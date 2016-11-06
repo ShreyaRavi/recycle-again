@@ -5,5 +5,15 @@ package org.teamresistance.frc;
  */
 public class Teleop {
 
+    Drive robotDrive;
+
+    public void init() {
+
+    }
+
+    public void update() {
+
+    }
+
 
 }
