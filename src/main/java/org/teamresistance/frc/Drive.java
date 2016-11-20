@@ -1,23 +1,26 @@
 package org.teamresistance.frc;
 
-import org.strongback.components.AngleSensor;
-import org.strongback.components.Motor;
-import org.strongback.components.ui.FlightStick;
-import org.strongback.drive.MecanumDrive;
-
-
+/**
+ * Created by shrey on 11/20/2016.
+ */
 public class Drive {
 
-    public MecanumDrive robotDrive;
-
-    public Drive(Motor leftFront, Motor leftRear, Motor rightFront, Motor rightRear, AngleSensor gyro) {
-        robotDrive = new MecanumDrive(leftFront,leftRear,rightFront,rightRear,gyro);
+    public void init() {
+        States.driveState = DriveState.OP_CONTROL;
     }
 
-    public void teleopDriveUpdate(FlightStick leftJoystick, FlightStick rightJoystick) {
-        robotDrive.cartesian(leftJoystick.getPitch().read(), leftJoystick.getRoll().read(), rightJoystick.getRoll().read());
+    public void update() {
+        if (States.driveState == DriveState.OP_CONTROL) {
+            IO.robotDrive.cartesian(IO.translateXSpeed.read(), IO.translateYSpeed.read(), IO.gyro.getAngle());
+        } else if (States.driveState == DriveState.COMMAND_CONTROL) {
+
+        } else if (States.driveState == DriveState.STOP) {
+            IO.robotDrive.stop();
+        }
     }
 
-
+    public void stop() {
+        IO.robotDrive.stop();
+    }
 
 }

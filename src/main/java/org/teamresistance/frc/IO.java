@@ -1,41 +1,44 @@
 package org.teamresistance.frc;
 
-import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import org.strongback.components.Motor;
+import org.strongback.components.ui.ContinuousRange;
 import org.strongback.components.ui.FlightStick;
 import org.strongback.drive.MecanumDrive;
+import org.strongback.hardware.Hardware;
 import org.strongback.hardware.Hardware.*;
-import org.strongback.hardware.Hardware.Motors;
 
 /**
- * Created by shrey on 11/6/2016.
+ * Created by shrey on 11/20/2016.
  */
 public class IO {
 
-    public static Motor leftFront;
-    public static Motor leftRear;
-    public static Motor rightFront;
-    public static Motor rightRear;
-    public static Gyro3D gyro;
-    public static FlightStick leftJoystick;
-    public static FlightStick rightJoystick;
+    // Drive Subsystem
+    public static final Motor frontLeftMotor = Motors.victorSP(0);
+    public static final Motor frontRightMotor = Motors.victorSP(1);
+    public static final Motor rearLeftMotor = Motors.victorSP(2);
+    public static final Motor rearRightMotor = Motors.victorSP(3);
+
+    public static final Gyro3D gyro = new Gyro3D(SPI.Port.kMXP);
+
+    public static final MecanumDrive robotDrive = new MecanumDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor, gyro);
+
+    // Joysticks
+    public static final FlightStick leftJoystick = HumanInterfaceDevices.logitechAttack3D(0);
+    public static final FlightStick rightJoystick = HumanInterfaceDevices.logitechAttack3D(1);
+
+    public static final ContinuousRange translateXSpeed = leftJoystick.getPitch();
+    public static final ContinuousRange translateYSpeed = leftJoystick.getRoll();
 
 
-    public static void init() {
-        gyro = new Gyro3D(SPI.Port.kMXP);
-        leftFront = Motors.victorSP(0);
-        leftRear = Motors.victorSP(1);
-        rightFront = Motors.victorSP(2);
-        rightRear = Motors.victorSP(3);
+    public static final FlightStick coJoystick = HumanInterfaceDevices.logitechAttack3D(2);
 
-        leftJoystick = HumanInterfaceDevices.logitechAttack3D(0);
-        rightJoystick = HumanInterfaceDevices.logitechAttack3D(1);
+    public static final ContinuousRange rotateSpeed = rightJoystick.getRoll();
 
-    }
+    public static final Motor armMotor = Motors.victorSP(4);
+    public static final ContinuousRange armSpeed = coJoystick.getPitch();
 
-    public static void update() {
-
-    }
+    public static final Motor wristMotor = Motors.victorSP(5);
+    public static final Motor clawMotor = Motors.victorSP(6);
 
 }
