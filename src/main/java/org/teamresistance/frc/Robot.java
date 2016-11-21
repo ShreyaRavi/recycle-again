@@ -12,11 +12,12 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 // TODO:
 //    buttons should change subsystem state to COMMAND_CONTROL
 //    AND
-//    should submit command(s) or command group(s) to strongback
+//    should submit command(s) or command group(s) to Strongback
+//    IO class shouldn't be referenced anywhere but
 
 public class Robot extends IterativeRobot {
 
-    Drive drive = new Drive();
+    Drive drive;
 
     @Override
     public void robotInit() {
@@ -26,7 +27,7 @@ public class Robot extends IterativeRobot {
 //        System.out.println(BuildConfig.AGENT);
 
         Strongback.configure().recordNoEvents().recordNoData().initialize();
-
+        drive = new Drive(IO.robotDrive);
 
     }
 
@@ -42,12 +43,12 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void teleopInit() {
-        drive.init();
+
     }
 
     @Override
     public void teleopPeriodic() {
-        drive.update();
+        drive.update(IO.translateXSpeed, IO.translateYSpeed, IO.gyro);
     }
 
     @Override

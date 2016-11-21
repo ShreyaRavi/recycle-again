@@ -2,6 +2,7 @@ package org.teamresistance.frc;
 
 import edu.wpi.first.wpilibj.SPI;
 import org.strongback.components.Motor;
+import org.strongback.components.Switch;
 import org.strongback.components.ui.ContinuousRange;
 import org.strongback.components.ui.FlightStick;
 import org.strongback.drive.MecanumDrive;
@@ -21,14 +22,20 @@ public class IO {
 
     public static final Gyro3D gyro = new Gyro3D(SPI.Port.kMXP);
 
-    public static final MecanumDrive robotDrive = new MecanumDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor, gyro);
+    public static final MecanumDrive robotDrive = new MecanumDrive(
+            frontLeftMotor,
+            rearLeftMotor,
+            frontRightMotor,
+            rearRightMotor,
+            gyro
+    );
 
     // Joysticks
     public static final FlightStick leftJoystick = HumanInterfaceDevices.logitechAttack3D(0);
     public static final FlightStick rightJoystick = HumanInterfaceDevices.logitechAttack3D(1);
 
-    public static final ContinuousRange translateXSpeed = leftJoystick.getPitch();
-    public static final ContinuousRange translateYSpeed = leftJoystick.getRoll();
+    public static final ContinuousRange translateXSpeed = leftJoystick.getRoll();
+    public static final ContinuousRange translateYSpeed = leftJoystick.getPitch();
 
 
     public static final FlightStick coJoystick = HumanInterfaceDevices.logitechAttack3D(2);
@@ -40,5 +47,8 @@ public class IO {
 
     public static final Motor wristMotor = Motors.victorSP(5);
     public static final Motor clawMotor = Motors.victorSP(6);
+
+    public static final Switch clawOpen = Switches.normallyOpen(0);
+    public static final Switch clawClosed = Switches.normallyClosed(1);
 
 }

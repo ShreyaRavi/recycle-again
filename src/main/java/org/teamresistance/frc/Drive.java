@@ -1,26 +1,33 @@
 package org.teamresistance.frc;
 
+import org.strongback.components.AngleSensor;
+import org.strongback.components.ui.ContinuousRange;
+import org.strongback.drive.MecanumDrive;
+
 /**
  * Created by shrey on 11/20/2016.
  */
 public class Drive {
 
-    public void init() {
+    public final MecanumDrive robotDrive;
+
+    public Drive(MecanumDrive robotDrive) {
+        this.robotDrive = robotDrive;
         States.driveState = DriveState.OP_CONTROL;
     }
 
-    public void update() {
+    public void update(ContinuousRange translateXSpeed, ContinuousRange translateYSpeed, AngleSensor gyro) {
         if (States.driveState == DriveState.OP_CONTROL) {
-            IO.robotDrive.cartesian(IO.translateXSpeed.read(), IO.translateYSpeed.read(), IO.gyro.getAngle());
+            this.robotDrive.cartesian(translateXSpeed.read(), translateYSpeed.read(), gyro.getAngle());
         } else if (States.driveState == DriveState.COMMAND_CONTROL) {
 
         } else if (States.driveState == DriveState.STOP) {
-            IO.robotDrive.stop();
+            this.robotDrive.stop();
         }
     }
 
     public void stop() {
-        IO.robotDrive.stop();
+        this.robotDrive.stop();
     }
 
 }
