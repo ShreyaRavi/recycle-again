@@ -1,12 +1,12 @@
 package org.teamresistance.frc;
 
 import edu.wpi.first.wpilibj.SPI;
+import org.strongback.components.DistanceSensor;
 import org.strongback.components.Motor;
 import org.strongback.components.Switch;
 import org.strongback.components.ui.ContinuousRange;
 import org.strongback.components.ui.FlightStick;
 import org.strongback.drive.MecanumDrive;
-import org.strongback.hardware.Hardware;
 import org.strongback.hardware.Hardware.*;
 
 /**
@@ -50,5 +50,12 @@ public class IO {
 
     public static final Switch clawOpen = Switches.normallyOpen(0);
     public static final Switch clawClosed = Switches.normallyClosed(1);
+
+    public static final DistanceSensor armPot = DistanceSensors.potentiometer(2,
+            Constants.ARM_POT_SCALE,
+            Constants.ARM_POT_OFFSET);
+
+
+
 
 }
