@@ -32,6 +32,12 @@ dependencies {
 
     // NetworkTables!
     compile 'edu.wpi.first.wpilib.networktables.java:NetworkTables:3.1.1-beta-1'
+    
+    // Unit testing!
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.0.0-M2'
+    testCompile 'org.junit.jupiter:junit-jupiter-engine:5.0.0-M2'
+    testCompile 'org.assertj:assertj-core:3.5.2'
+    testCompile 'org.mockito:mockito-core:2.2.22'
 }
 
 sourceSets {
